@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Лющер</title>
+   <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">  
+   <!-- CSS Files -->
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+</head>
+<body>
+<!-- <div class="container_lusher" id="board" style="height: 3000; width: 4000; background-color: blue; color: aquamarine;"> -->
+<!-- <div class="container_lusher" id="board" style="height: 3000; width: 4000; background-color: blue; color: aquamarine;"> -->
+  <div class="container container-fluid" style="width:600px">
+    <div class="form-control" id="interpretation_result"></div>
+    <div class="row">
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-lg btn-block custom-btn button-color_blue res" data-symbol="blue"></button>
+      </div>
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_green res" data-symbol="green"></button>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_violet res" data-symbol="violet"></button>
+
+      </div>
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_brown res" data-symbol="brown"></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_red res" data-symbol="red"></button>
+      </div>
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_black res" data-symbol="black"></button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_yellow res" data-symbol="yellow""></button>
+      </div>
+      <div class="col-md-6" style="margin: 0; padding:0">
+        <button class="btn btn-primary btn-lg btn-block custom-btn button-color_gray res" data-symbol="gray"></button>
+      </div>
+    </div>
+  </div>
+  <ul style="color: aliceblue;" id="symbolList"></ul>
+  <form action="post" id="editForm">
+    {% csrf_token %}
+    <input type="hidden" name="result" id="resultInput">
+  <button class="btn btn-primary" id="lusher_send">Отправить</button>
+  
+  <a class="btn btn-primary" href="/admin" >admin</a>
+</form>
+<!-- <form action="get" id="getInterpretationForm"> -->
+  <!-- {% csrf_token %} -->
+  <button class="btn btn-primary" id="lusher_recieve" onclick="get_inter()">Получить интерпретацию</button>
+<!-- </form> -->
+<!-- <div class="square" ></div> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- Наш скрипт -->
+ <script src="{% static 'js/appGame.js' %}"></script>
+ <script>
+  var lusherRecieveButton = document.getElementById('lusher_recieve');
+  // lusherRecieveButton.addEventListener('click', function() {
+  //     // Изменяем стиль отображения скрытой строки на "table-row" для показа
+  //     // hiddenRow.style.display = 'table-row';
+  //   get_inter();
+  //   });
+
+function get_inter(){
+    var colors = ['green', 'blue']; // Здесь вам нужно получить выбранные цвета (например, с помощью jQuery
+    // Формируем URL для GET-запроса с выбранными цветами
+    var colorsString = colors.join(',');
+    // var url = ;
+    // var url = '/get_interpretation/'
+    // Отправляем GET-запрос на сервер
+    $.ajax({
+        url: '/get_interpretation_result/',
+        type: 'GET',
+        // data: colors,
+        // dataType: 'json',
+        success: function(response) {
+            // if (data.success) {
+                // Обновляем содержимое страницы с полученными данными
+                var resultsDiv = $('#interpretation_result');
+                resultsDiv.empty();
+                $('#interpretation_result').val(12);
+                // for (var i = 0; i < data.interpretations.length; i++) {
+                //     var interpretation = data.interpretations[i];
+                resultsDiv.append('<p>' + response.green + '</p>');
+                // }
+                console.log(response)
+            // } else {
+            //   console.log('success else')
+            //     // Обработка ошибки, если что-то пошло не так
+            // }
+        },
+        error: function(error) {
+            // Обработка ошибки, если AJAX-запрос не удался
+            console.log(error)
+        }
+    });
+}
+
+ </script>
+</body>
+</html>

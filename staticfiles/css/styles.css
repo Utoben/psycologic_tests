@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #111;
+  display: flex;
+  
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}
+
+.container{
+  background-color: #111;
+  /* flex-wrap: wrap; */
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 500px; */
+
+}
+
+.button-color_blue{
+  background-color: blue;
+}
+.button-color_violet{
+  background-color: rgb(126, 3, 241);
+}
+.button-color_green{
+  background-color: green;
+}
+.button-color_brown{
+  background-color: brown;
+}
+.button-color_red{
+  background-color: red;
+}
+.button-color_black{
+  background-color: black;
+}
+.button-color_yellow{
+  background-color: yellow;
+}
+.button-color_gray{
+  background-color: gray;
+}
+.button-color_gray:hover{
+  background-color: gray;
+}
+.square{
+  width: 16px;
+  height: 16px;
+  background: #1d1d1d;
+  margin: 2px;
+  box-shadow: 0 0 2px #000;
+  transition: 1,2s ease;
+}
+
+.square:hover{
+  transition-duration: 0;
+}
+
+.custom-btn {
+  height: 100px;
+  font-size: 24px;
+  padding: 20px;
+}
